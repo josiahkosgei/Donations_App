@@ -14,7 +14,7 @@
 ### How To Run The Project
 
 * Clone the repository and rebuild to restore the Nuget Packages
-* Run terminal(Powershelll/cmd) from ***`Donations_Api`*** Directory and run ***`dotnet ef database update`*** command To Run the Migrations against local SQL Server
+* Run terminal(Powershelll/cmd) from ***`Donations_Api`*** Directory and execute ***`dotnet ef database update`*** command To Run the Migrations against local SQL Server Instance
 * Run the Application, Multiple Projects will run at the same time
 
     * Donation App will run at https://localhost:44323/ and
@@ -22,3 +22,5 @@
 
 * On https://localhost:44323/ Fill the Donors Details and Complete the Checkout process
 * Register and Login on https://localhost:44328/ to access Transactions locally
+
+Make necessary configuration changes on `Donations_App\appsettings.json`

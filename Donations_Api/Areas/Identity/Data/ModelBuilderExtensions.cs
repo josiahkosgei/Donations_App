@@ -4,6 +4,9 @@ using System;
 
 namespace Donations_Api.Areas.Identity.Data
 {
+    /// <summary>
+    /// Helper Class for Seeding Initial Data
+    /// </summary>
     public static class ModelBuilderExtensions
     {
         public static void Seed(this ModelBuilder modelBuilder)

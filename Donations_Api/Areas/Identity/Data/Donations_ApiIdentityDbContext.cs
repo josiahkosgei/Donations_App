@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Donations_Api.Areas.Identity.Data
 {
+    /// <summary>
+    /// For Defining the Repository pattern of our App
+    /// </summary>
     public class Donations_ApiIdentityDbContext : IdentityDbContext<IdentityUser>
     {
         public Donations_ApiIdentityDbContext(DbContextOptions<Donations_ApiIdentityDbContext> options)
