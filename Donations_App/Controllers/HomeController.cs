@@ -38,6 +38,32 @@ namespace Donations_App.Controllers
             return View();
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        /// <summary>
+        /// Post Method For Donation Form
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Donate(DonationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var pesapalUrl = PostDonationToPesaPal(model);
+                TempData["PesapalUrl"] = pesapalUrl;
+                return RedirectToAction("Confirm");
+            }
+            return View();
+        }
+        /// <summary>
+        /// Payment Details Callback
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> ProcessDonationAsync()
         {
 
@@ -45,6 +71,7 @@ namespace Donations_App.Controllers
             {
                 string reference = Request.Query["pesapal_merchant_reference"].ToString();
                 string pesapal_tracking_id = Request.Query["pesapal_transaction_tracking_id"].ToString();
+
                 Uri pesapalQueryUri = new Uri("https://pesapal.com/API/querypaymentdetails");
 
                 IBuilder builder = new APIPostParametersBuilder()
@@ -72,7 +99,7 @@ namespace Donations_App.Controllers
                 //Deserialize TempData
                 var _PesapalDirectOrderInfo = JsonConvert.DeserializeObject<PesapalDirectOrderInfo>((string)TempData["_PesapalDirectOrderInfo"]);
 
-
+                //Build a key pair values for Posting to 3rd Part API
                 var parameters = new Dictionary<string, string> {
                     { "pesapalTrackingId", pesapalTrackingId },
                     { "paymentMethod", paymentMethod },
@@ -96,34 +123,12 @@ namespace Donations_App.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         /// <summary>
-        /// Post Method For Donation Form
+        ///Post Donation To PesaPal and Process the response
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost]
-        public IActionResult Donate(DonationViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var pesapalUrl = ProcessDonation(model);
-                TempData["PesapalUrl"] = pesapalUrl;
-                return RedirectToAction("Confirm");
-            }
-            return View();
-        }
-        /// <summary>
-        /// A callak function to Process Donation
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        protected string ProcessDonation(DonationViewModel model)
+        protected string PostDonationToPesaPal(DonationViewModel model)
         {
             Uri pesapalPostUri = new Uri("https://pesapal.com/API/PostPesapalDirectOrderV4");
             Uri pesapalCallBackUri = new Uri(_configuration.GetSection("Configs").GetSection("callback_url").Value);
@@ -173,6 +178,7 @@ namespace Donations_App.Controllers
             // Post the donation to PesaPal
             return helper.PostGetPesapalDirectOrderUrl(webOrder);
         }
+        
         /// <summary>
         /// Post all transactions to a 3rd party API
         /// </summary>
