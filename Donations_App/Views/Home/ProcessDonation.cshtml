@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Response";
+}
+@{
+    if (ViewData["paymentStatus"].ToString() == "COMPLETED")
+    {
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Transaction Complete!</h4>
+            <p>Transaction Complete.</p>
+            <hr>
+            <p class="mb-0">Transaction Complete.</p>
+        </div>
+    }
+    if (ViewData["paymentStatus"].ToString() == "PENDING")
+    {
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Transaction Pending!</h4>
+            <p>Transaction Pending.</p>
+            <hr>
+            <p class="mb-0">Transaction Pending.</p>
+        </div>
+    }
+    if (ViewData["paymentStatus"].ToString() == "FAILED")
+    {
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Transaction Failed!</h4>
+            <p>Transaction Failed</p>
+            <hr>
+            <p class="mb-0">Transaction Failed</p>
+        </div>
+    }
+    if (ViewData["paymentStatus"].ToString() == "INVALID")
+    {
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Invalid Transaction!</h4>
+            <p>Invalid Transaction</p>
+            <hr>
+            <p class="mb-0">Invalid Transaction</p>
+        </div>
+    }
+}

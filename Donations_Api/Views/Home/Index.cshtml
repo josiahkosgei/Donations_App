@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Donations_Api.Entities.Transaction>
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Buyer Name/Phone
+            </th>
+            <th> Email/Phone</th>
+            <th> Method </th>
+            <th>Status</th>
+            <th>Amount</th>
+            <th>Ref</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuyerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paymentMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paymentStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reference)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
