@@ -20,5 +20,6 @@ namespace Donations_Api.Areas.Identity.Data
             base.OnModelCreating(builder);
             builder.Seed();
         }
+        
     }
 }

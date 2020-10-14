@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using Donations_Api.Areas.Identity.Data;
+﻿using Donations_Api.Areas.Identity.Data;
 using Donations_Api.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Donations_Api.Controllers
 {
@@ -34,7 +34,7 @@ namespace Donations_Api.Controllers
             {
                 context.Transactions.Add(transaction);
                 context.SaveChanges();
-                
+
             }
             return Ok(transaction);
         }
